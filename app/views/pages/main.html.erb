@@ -1,0 +1,32 @@
+<div style="width: 100vw">
+  <p class="text-center" style="color: green"><%= notice %></p>
+
+  <h1 class="text-center">General info</h1>
+
+  <div id="questions" class="d-flex flex-column align-items-center">
+    <div style="width: 75%">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Category</th>
+          <th scope="col">Questions count</th>
+          <th scope="col">Already played</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @categories.each do |category| %>
+          <tr>
+            <td><%= category.name %></td>
+            <td><%= category.questions.count %></td>
+            <td><%= 0 %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="w-75">
+      <%= link_to "New Quiz Session!", new_quiz_session_path, class: 'btn btn-success' %>
+    </div>
+  </div>
+</div>

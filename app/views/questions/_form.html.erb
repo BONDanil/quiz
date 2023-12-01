@@ -1,0 +1,16 @@
+
+<%= simple_form_for(@question) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors.full_messages.to_sentence if f.object.errors.present? %>
+
+  <div class="form-inputs">
+    <%= f.association :category, collection: current_user.categories.order(:name), include_blank: 'Choose category' %>
+    <%= f.input :text %>
+    <%= f.input :image, as: :file %>
+    <%= f.input :answer %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn btn-success' %>
+  </div>
+<% end %>

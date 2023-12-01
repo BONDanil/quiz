@@ -1,0 +1,17 @@
+<div style="width: 100vw">
+  <p style="color: green"><%= notice %></p>
+
+  <h1 class="text-center">New Quiz Session settings</h1>
+  <div class="w-75 mx-auto">
+    <%= form_with url: quiz_sessions_path do |f| %>
+      <div class="form-inputs mb-3">
+        <%= f.label :count_of_questions, class: "form-label" %>
+        <%= f.number_field :count, class: "form-control" %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit 'Start!', class: 'btn btn-success' %>
+      </div>
+    <% end %>
+  </div>
+</div>

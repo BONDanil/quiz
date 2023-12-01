@@ -1,0 +1,12 @@
+<td>
+  <%= category.id %>
+</td>
+<td>
+  <%= category.name %>
+</td>
+<td>
+  <div class="d-flex">
+    <%= link_to "Edit", edit_category_path(category), class: "btn btn-primary" %>
+    <%= button_to "Destroy", category, method: :delete, data: { turbo_confirm: 'Are you sure? All related questions will remove!' }, class: "btn btn-danger" %>
+  </div>
+</td>

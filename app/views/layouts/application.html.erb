@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Quiz</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <div class="d-flex">
+      <% unless params.values_at(:controller, :action) == %w[quiz_sessions show] || params[:controller].split('/')[0] == 'devise' %>
+        <%= render 'layouts/sidebar' %>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body>
+</html>

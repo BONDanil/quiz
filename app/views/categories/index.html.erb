@@ -1,0 +1,30 @@
+<div style="width: 100vw">
+  <p class="text-center" style="color: green"><%= notice %></p>
+
+  <h1 class="text-center">Categories</h1>
+
+  <div id="categories" class="d-flex flex-column align-items-center">
+    <div style="width: 75%">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @categories.each do |category| %>
+          <tr>
+            <%= render category %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="w-75">
+      <%= link_to "New category", new_category_path, class: 'btn btn-success' %>
+    </div>
+  </div>
+</div>
