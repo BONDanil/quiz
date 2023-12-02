@@ -4,6 +4,16 @@
 html {
   height: 100%;
 }
+
 body {
   min-height: 100%;
+}
+
+#imagePreview {
+  height: 200px;
+  width: auto;
+}
+
+#imagePreview[src=""] {
+  display: none;
 }
