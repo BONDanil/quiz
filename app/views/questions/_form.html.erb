@@ -6,8 +6,13 @@
   <div class="form-inputs" data-controller="image">
     <%= f.association :category, collection: current_user.categories.order(:name), include_blank: 'Choose category' %>
     <%= f.input :text %>
-    <%= f.input :image, as: :file, input_html: { data: { action: 'image#showImage' } } %>
-    <img src="<%= url_for(@question.image) if @question.image.attached? %>" id="imagePreview" alt="Attached image"  />
+    <%= f.input :image, as: :file, input_html: { data: { action: 'image#showImage', image_target: 'imageInput' } } %>
+    <div class="d-flex align-items-center" id="previewDiv">
+      <img src="<%= url_for(@question.image) if @question.image.attached? %>" id="imagePreview" data-image-target="imagePreview" alt="Attached image"  />
+      <% if @question.image.attached? %>
+        <%= link_to '', attachment_path(@question.image.id), type: "button", class: "btn-close", data: { turbo_confirm: 'Are you sure?', turbo_method: :delete, action: "image#deleteImage" }, id: 'deleteImageBtn' %>
+      <% end %>
+    </div>
     <%= f.input :answer %>
   </div>
 
