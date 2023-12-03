@@ -1,0 +1,12 @@
+Welcome to Quiz, <%= @user.nickname %>
+=====================================
+
+You have successfully signed up to Quiz.
+
+<% unless @password.nil? %>
+  As you registered with Google, we generated random password.
+  You can change it on editing profile page (<%= edit_user_registration_url %>).
+  Your current password: <%= @password %>
+<% end %>
+
+Thanks for joining and have a great day!

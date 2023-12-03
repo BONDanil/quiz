@@ -36,7 +36,8 @@ class User < ApplicationRecord
                 provider: 'google_oauth2')
 
     user.attach_profile_picture_from_url(image_url)
-    pp password
+
+    UserMailer.with(user: user, password: password).welcome_email.deliver_later
 
     user
   end

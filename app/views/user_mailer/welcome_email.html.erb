@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <title>Welcome email</title>
+</head>
+<body>
+<h1>Welcome to Quiz, <%= @user.nickname %></h1>
+<p>
+  You have successfully signed up to Quiz.
+</p>
+<% unless @password.nil? %>
+  <p>
+    As you registered with Google, we generated random password.
+    You can change it on <%= link_to 'editing profile page', edit_user_registration_url %>.
+    Your current password: <b><%= @password %></b>
+  </p>
+<% end %>
+<p>Thanks for joining and have a great day!</p>
+</body>
+</html>
