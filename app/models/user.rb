@@ -9,18 +9,35 @@ class User < ApplicationRecord
   has_many :quiz_sessions, dependent: :destroy
   has_many :categories, dependent: :destroy
   has_many :questions, dependent: :destroy
+  has_one_attached :profile_picture
+
+  def attach_profile_picture_from_url(url)
+    downloaded_file = URI.open(url)
+
+    profile_picture.attach(
+      io: downloaded_file,
+      filename: 'profile_picture.jpg',
+      content_type: downloaded_file.content_type)
+  end
 
   private
 
-  def self.from_google(email:, uid: )
+  def self.from_google(email:, uid:, image_url:)
     user = User.find_by(email: email)
 
     return user if user
 
-    User.create(email: email,
-                password: Devise.friendly_token[0,20],
+    password = Devise.friendly_token[0,20]
+
+    user = User.create(email: email,
+                password: password,
                 nickname: email.split('@').first,
                 uid: uid,
                 provider: 'google_oauth2')
+
+    user.attach_profile_picture_from_url(image_url)
+    pp password
+
+    user
   end
 end
