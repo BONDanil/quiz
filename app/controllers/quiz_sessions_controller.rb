@@ -4,7 +4,7 @@ class QuizSessionsController < ApplicationController
   end
 
   def create
-    @questions = current_user.questions.sample(params[:count].to_i)
+    @questions = current_user.questions.not_used.sample(params[:count].to_i)
     @quiz_session = QuizSession.new(user: current_user, questions: @questions)
 
     respond_to do |format|

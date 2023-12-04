@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_01_164224) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_03_173751) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -54,9 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_01_164224) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "quiz_session_id"
     t.index ["category_id"], name: "index_questions_on_category_id"
-    t.index ["quiz_session_id"], name: "index_questions_on_quiz_session_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
@@ -65,6 +63,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_01_164224) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_quiz_sessions_on_user_id"
+  end
+
+  create_table "sessions_questions", force: :cascade do |t|
+    t.integer "question_id", null: false
+    t.integer "quiz_session_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_sessions_questions_on_question_id"
+    t.index ["quiz_session_id"], name: "index_sessions_questions_on_quiz_session_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -87,7 +94,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_01_164224) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "users"
   add_foreign_key "questions", "categories"
-  add_foreign_key "questions", "quiz_sessions"
   add_foreign_key "questions", "users"
   add_foreign_key "quiz_sessions", "users"
+  add_foreign_key "sessions_questions", "questions"
+  add_foreign_key "sessions_questions", "quiz_sessions"
 end
