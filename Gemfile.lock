@@ -107,6 +107,7 @@ GEM
     hashie (5.0.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    interactor (3.1.2)
     io-console (0.6.0)
     irb (1.9.1)
       rdoc
@@ -283,6 +284,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   devise
+  interactor (~> 3.0)
   jbuilder
   jsbundling-rails
   omniauth-google-oauth2

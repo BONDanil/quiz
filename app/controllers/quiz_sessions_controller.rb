@@ -4,17 +4,13 @@ class QuizSessionsController < ApplicationController
   end
 
   def create
-    @questions = current_user.questions.not_used.sample(params[:count].to_i)
-    @quiz_session = QuizSession.new(user: current_user, questions: @questions)
+    result = CreateQuizSession.call(user: current_user, count_of_questions: params[:count].to_i)
 
-    respond_to do |format|
-      if @quiz_session.save
-        format.html { redirect_to @quiz_session }
-        format.json { render :show, status: :created, location: @quiz_session }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @quiz_session.errors, status: :unprocessable_entity }
-      end
+    if result.success?
+      redirect_to result.quiz_session
+    else
+      flash.now[:error] = result.errors
+      render :new, status: :unprocessable_entity
     end
   end
 

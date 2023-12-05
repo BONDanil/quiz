@@ -1,7 +1,6 @@
 
 <%= simple_form_for(@question) do |f| %>
   <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors.full_messages.to_sentence if f.object.errors.present? %>
 
   <div class="form-inputs" data-controller="image">
     <%= f.association :category, collection: current_user.categories.order(:name), include_blank: 'Choose category' %>
