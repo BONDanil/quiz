@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_03_173751) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_08_214847) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -58,11 +58,36 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_03_173751) do
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
+  create_table "quiz_answers", force: :cascade do |t|
+    t.integer "quiz_session_id", null: false
+    t.integer "user_id", null: false
+    t.integer "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_session_id"], name: "index_quiz_answers_on_quiz_session_id"
+    t.index ["user_id"], name: "index_quiz_answers_on_user_id"
+  end
+
   create_table "quiz_sessions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.integer "questions_count"
+    t.string "status", default: "pending"
+    t.string "session_type", default: "default"
+    t.integer "current_question_index", default: 0
     t.index ["user_id"], name: "index_quiz_sessions_on_user_id"
+  end
+
+  create_table "sessions_players", force: :cascade do |t|
+    t.integer "quiz_session_id", null: false
+    t.integer "user_id", null: false
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_session_id"], name: "index_sessions_players_on_quiz_session_id"
+    t.index ["user_id"], name: "index_sessions_players_on_user_id"
   end
 
   create_table "sessions_questions", force: :cascade do |t|
@@ -95,7 +120,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_03_173751) do
   add_foreign_key "categories", "users"
   add_foreign_key "questions", "categories"
   add_foreign_key "questions", "users"
+  add_foreign_key "quiz_answers", "quiz_sessions"
+  add_foreign_key "quiz_answers", "users"
   add_foreign_key "quiz_sessions", "users"
+  add_foreign_key "sessions_players", "quiz_sessions"
+  add_foreign_key "sessions_players", "users"
   add_foreign_key "sessions_questions", "questions"
   add_foreign_key "sessions_questions", "quiz_sessions"
 end

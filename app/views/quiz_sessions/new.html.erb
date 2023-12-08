@@ -1,20 +1,19 @@
 <div style="width: 100vw">
   <h1 class="text-center">New Quiz Session settings</h1>
   <div class="w-75 mx-auto">
-    <%= form_with url: quiz_sessions_path do |f| %>
+    <%= simple_form_for(@quiz_session) do |f| %>
+      <div class="form-inputs mb-3">
+        <%= f.check_box :only_free, { checked: 'checked' }, true, false %>
+        <%= f.label :only_free, "Only unplayed questions", class: "form-label" %>
+        <br>
+        <%= f.input :name, class: "form-control" %>
+        <%= f.input :questions_count, class: "form-control" %>
+      </div>
       <% flash.each do |type, msg| %>
         <div style="color: red">
           <%= msg %>
         </div>
       <% end %>
-      <div class="form-inputs mb-3">
-        <%= f.check_box :only_free, { checked: 'checked' }, true, false %>
-        <%= f.label :only_free, "Only unplayed questions", class: "form-label" %>
-        <br>
-        <%= f.label :questions_count, "Questions count", class: "form-label" %>
-        <%= f.number_field :questions_count, class: "form-control" %>
-      </div>
-
       <div class="form-actions">
         <%= f.submit 'Start!', class: 'btn btn-success' %>
       </div>

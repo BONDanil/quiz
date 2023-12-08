@@ -1,16 +1,16 @@
 class QuizSessionsController < ApplicationController
   def new
-    @quiz_session = QuizSession.new
+    @quiz_session = QuizSession.new(name: "Session ##{current_user.quiz_sessions.count.next}")
   end
 
   def create
-    result = CreateQuizSession.call(user: current_user, **filter_params)
+    result = CreateQuizSession.call(user: current_user, **quiz_session_params)
 
     if result.success?
       redirect_to result.quiz_session
     else
-      flash.now[:error] = result.errors
-      render :new, status: :unprocessable_entity
+      flash[:error] = result.errors
+      redirect_to new_quiz_session_path, status: :unprocessable_entity
     end
   end
 
@@ -21,10 +21,6 @@ class QuizSessionsController < ApplicationController
   private
 
   def quiz_session_params
-    params.require(:quiz_session).permit(:questions_count, :only_free)
-  end
-
-  def filter_params
-    params.permit(:questions_count, :only_free)
+    params.require(:quiz_session).permit(:name, :questions_count, :only_free)
   end
 end

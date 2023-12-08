@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :quiz_sessions, dependent: :destroy
   has_many :categories, dependent: :destroy
   has_many :questions, dependent: :destroy
+  has_many :sessions_players, class_name: 'SessionsPlayer', dependent: :nullify
+  has_many :participated_sessions, through: :sessions_players, source: :quiz_session
   has_one_attached :profile_picture
 
   def attach_profile_picture_from_url(url)
