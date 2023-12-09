@@ -1,7 +1,7 @@
 class CreateQuizSession
   include Interactor
 
-  delegate :user, :name, :only_free, to: :context
+  delegate :user, :name, :only_free, :session_type, to: :context
 
   def call
     if questions_count.zero?
@@ -21,6 +21,7 @@ class CreateQuizSession
       user: user,
       name: name,
       questions_count: questions_count,
+      session_type: session_type,
       questions: random_questions
     )
 

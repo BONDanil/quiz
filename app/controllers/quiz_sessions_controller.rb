@@ -16,11 +16,17 @@ class QuizSessionsController < ApplicationController
 
   def show
     @quiz_session = QuizSession.find(params[:id])
+
+    if @quiz_session.default?
+      render 'quiz_sessions/default/show'
+    elsif @quiz_session.synchronous?
+      render 'quiz_sessions/synchronous/show'
+    end
   end
 
   private
 
   def quiz_session_params
-    params.require(:quiz_session).permit(:name, :questions_count, :only_free)
+    params.require(:quiz_session).permit(:name, :questions_count, :only_free, :session_type)
   end
 end

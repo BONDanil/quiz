@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="quiz-session"
+// Connects to data-controller="default-quiz-session"
 export default class extends Controller {
   static targets = ["progressBar", "showAnswerBtn", "carousel", "answer"];
   static values = {index: Number}

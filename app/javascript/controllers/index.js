@@ -4,11 +4,11 @@
 
 import { application } from "./application"
 
+import DefaultQuizSessionController from "./default_quiz_session_controller"
+application.register("default-quiz-session", DefaultQuizSessionController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
 import ImageController from "./image_controller"
 application.register("image", ImageController)
-
-import QuizSessionController from "./quiz_session_controller"
-application.register("quiz-session", QuizSessionController)

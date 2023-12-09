@@ -3,11 +3,11 @@
   <div class="w-75 mx-auto">
     <%= simple_form_for(@quiz_session) do |f| %>
       <div class="form-inputs mb-3">
-        <%= f.check_box :only_free, { checked: 'checked' }, true, false %>
-        <%= f.label :only_free, "Only unplayed questions", class: "form-label" %>
-        <br>
         <%= f.input :name, class: "form-control" %>
         <%= f.input :questions_count, class: "form-control" %>
+        <%= f.check_box :only_free, { checked: 'checked' }, true, false %>
+        <%= f.label :only_free, "Only unplayed questions", class: "form-label" %>
+        <%= f.input :session_type, collection: QuizSession.session_types.values %>
       </div>
       <% flash.each do |type, msg| %>
         <div style="color: red">
