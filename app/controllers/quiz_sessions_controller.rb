@@ -4,7 +4,7 @@ class QuizSessionsController < ApplicationController
   end
 
   def create
-    result = CreateQuizSession.call(user: current_user, count_of_questions: params[:count].to_i)
+    result = CreateQuizSession.call(user: current_user, **filter_params)
 
     if result.success?
       redirect_to result.quiz_session
@@ -21,6 +21,10 @@ class QuizSessionsController < ApplicationController
   private
 
   def quiz_session_params
-    params.require(:quiz_session).permit(:count)
+    params.require(:quiz_session).permit(:questions_count, :only_free)
+  end
+
+  def filter_params
+    params.permit(:questions_count, :only_free)
   end
 end
