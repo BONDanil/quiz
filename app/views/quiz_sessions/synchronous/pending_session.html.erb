@@ -1,0 +1,10 @@
+<%= turbo_stream_from @quiz_session %>
+
+<%= turbo_frame_tag @quiz_session do %>
+  <p class="text-center" style="color: green"><%= notice %></p>
+
+  <br>
+  <%= render 'quiz_sessions/synchronous/players' %>
+  <br>
+  <%= link_to 'Start!', start_quiz_session_path, data: { turbo_method: :put } %>
+<% end %>
