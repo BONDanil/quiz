@@ -25,23 +25,10 @@ class QuizSessionsController < ApplicationController
   end
 
   def start
+    # TODO: move to service
     quiz_session.update(status: :in_progress)
-
-    # respond_to do |format|
-    #   format.turbo_stream {
-    #     render turbo_stream:
-    #              turbo_stream.replace(
-    #                quiz_session,
-    #                partial: 'quiz_sessions/synchronous/in_progress_session',
-    #                locals: { quiz_session: quiz_session }
-    #              )
-    #   }
-    # end
-
-    #quiz_session.broadcast_replace 'quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
-    quiz_session.broadcast_replace_to quiz_session, template: 'quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
-
-    # redirect_to quiz_session_path(quiz_session)
+    quiz_session.broadcast_replace_to quiz_session, target: 'host-quiz', template: 'quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
+    quiz_session.broadcast_replace_to quiz_session, target: 'player-quiz', template: 'player/quiz_sessions/in_progress_session', locals: { quiz_session: quiz_session }
   end
 
   private

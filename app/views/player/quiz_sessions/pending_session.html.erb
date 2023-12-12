@@ -1,6 +1,6 @@
 <%= turbo_stream_from @quiz_session %>
 
-<%= turbo_frame_tag @quiz_session do %>
+<%= turbo_frame_tag 'player-quiz' do %>
   <%= render 'quiz_sessions/synchronous/players' %>
   <br>
   <h2>Waiting for the host to start the quiz...</h2>

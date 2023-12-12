@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   }
   resources :attachments, only: %i[destroy]
   get 'quiz_sessions/:id/play', to: 'player/quiz_sessions#show'
+  post 'quiz_sessions/:id/answer', to: 'player/quiz_sessions#answer'
 end

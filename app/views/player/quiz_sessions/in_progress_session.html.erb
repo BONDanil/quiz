@@ -1,5 +1,10 @@
-<%= turbo_frame_tag @quiz_session do %>
-  question
+<%= turbo_frame_tag 'player-quiz' do %>
+  <!--  TODO: hide answer-->
+  <%= render 'quiz_sessions/default/question', question: @quiz_session.questions[@quiz_session.current_question_index] %>
   <br>
-  field for answer
+  <%= form_with url: "/quiz_sessions/#{@quiz_session.id}/answer", method: :post do |f| %>
+    <%= f.label 'Your answer:' %>
+    <%= f.text_field :answer %>
+    <%= f.submit 'Send' %>
+  <% end %>
 <% end %>

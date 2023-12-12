@@ -1,5 +1,6 @@
-<%= turbo_frame_tag @quiz_session do %>
-  question
+<%= turbo_frame_tag 'host-quiz' do %>
+  <!--  TODO: show answer-->
+  <%= render 'quiz_sessions/default/question', question: @quiz_session.questions[@quiz_session.current_question_index] %>
   <br>
   answers
 <% end %>

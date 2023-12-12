@@ -1,6 +1,6 @@
 <%= turbo_stream_from @quiz_session %>
 
-<%= turbo_frame_tag @quiz_session do %>
+<%= turbo_frame_tag 'host-quiz' do %>
   <p class="text-center" style="color: green"><%= notice %></p>
 
   <br>

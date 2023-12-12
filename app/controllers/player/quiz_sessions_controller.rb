@@ -15,6 +15,10 @@ class Player::QuizSessionsController < ApplicationController
     end
   end
 
+  def answer
+    binding.pry
+  end
+
   private
 
   def render_proper_page
