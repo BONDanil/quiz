@@ -1,0 +1,9 @@
+<%= turbo_frame_tag 'host-quiz' do %>
+  <%= render 'quiz_sessions/synchronous/rating', quiz_session: quiz_session %>
+
+  <% if quiz_session.in_progress? %>
+    <%= link_to 'Next!', next_quiz_session_path(quiz_session), data: { turbo_method: :put }, class: 'btn btn-primary' %>
+  <% else %>
+    <%= link_to 'Home!', root_path, data: { turbo: false }, class: 'btn btn-success' %>
+  <% end %>
+<% end %>

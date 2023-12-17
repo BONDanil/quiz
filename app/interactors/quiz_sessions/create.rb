@@ -9,7 +9,6 @@ module QuizSessions
         context.fail!(errors: "Questions count must be positive number.")
       end
 
-      available_questions = filtered_questions
       available_questions_count = available_questions.pluck(:id).count
 
       if available_questions_count < questions_count
@@ -39,10 +38,12 @@ module QuizSessions
       @questions_count ||= context.questions_count.to_i
     end
 
-    def filtered_questions
-      questions = user.questions
-      questions = user.questions.not_used if only_free
-      questions
+    def available_questions
+      @available_questions ||= begin
+        questions = user.questions
+        questions = user.questions.not_used if only_free
+        questions
+      end
     end
   end
 end

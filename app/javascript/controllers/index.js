@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AnswersController from "./answers_controller"
+application.register("answers", AnswersController)
+
 import DefaultQuizSessionController from "./default_quiz_session_controller"
 application.register("default-quiz-session", DefaultQuizSessionController)
 
@@ -12,3 +15,6 @@ application.register("hello", HelloController)
 
 import ImageController from "./image_controller"
 application.register("image", ImageController)
+
+import RatingController from "./rating_controller"
+application.register("rating", RatingController)

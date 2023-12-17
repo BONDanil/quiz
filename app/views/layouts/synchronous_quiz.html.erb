@@ -1,0 +1,4 @@
+<%= render template: 'layouts/application' %>
+<%= turbo_stream_from [@quiz_session, current_user] %>
+<%= turbo_stream_from @quiz_session %>
+

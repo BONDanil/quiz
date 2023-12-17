@@ -1,10 +1,9 @@
-<%= turbo_stream_from @quiz_session %>
-
 <%= turbo_frame_tag 'player-quiz' do %>
-  <%= render 'quiz_sessions/synchronous/players' %>
-  <br>
-  <h2>Waiting for the host to start the quiz...</h2>
-  <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
+  <div class="d-flex">
+    <h2>Waiting for the host to start the quiz</h2>
+    <%= render 'player/quiz_sessions/spinner' %>
   </div>
+  <hr>
+  <h2>Connected players:</h2>
+  <%= render 'player/quiz_sessions/players', quiz_session: quiz_session %>
 <% end %>

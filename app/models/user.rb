@@ -22,6 +22,10 @@ class User < ApplicationRecord
       content_type: downloaded_file.content_type)
   end
 
+  def points_count(quiz_session)
+    QuizAnswer.where(quiz_session: quiz_session, user: self, correct: true).count
+  end
+
   private
 
   def self.from_google(email:, uid:, image_url:)

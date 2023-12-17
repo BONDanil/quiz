@@ -11,6 +11,10 @@ module Quiz
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     config.action_mailer.default_url_options = { host: 'localhost:3000' }
+    #config.action_mailer.default_url_options = { host: 'salty-cats-teach.loca.lt' }
+    config.action_controller.default_url_options = { host: 'http://localhost', port: 3000 }
+    #config.action_controller.default_url_options = { host: 'salty-cats-teach.loca.lt' }
+    #config.web_console.allowed_ips = '212.129.85.173'
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

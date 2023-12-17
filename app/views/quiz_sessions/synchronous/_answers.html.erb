@@ -1,0 +1,13 @@
+<h2>Wait for answers:</h2>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Nickname</th>
+    <th scope="col">Answer</th>
+    <th scope="col">Correct?</th>
+  </tr>
+  </thead>
+  <tbody id="answers-list">
+  <%= render partial: 'quiz_sessions/synchronous/answer', collection: quiz_answers, as: :answer %>
+  </tbody>
+</table>

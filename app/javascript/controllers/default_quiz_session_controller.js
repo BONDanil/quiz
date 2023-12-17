@@ -12,7 +12,11 @@ export default class extends Controller {
       this.indexValue = event.to;
       this.setProgressWidth(this.indexValue);
       this.hideAnswer(event.from)
-    })
+    });
+  }
+
+  disconnect() {
+    this.carouselTarget.removeEventListener('slide.bs.carousel', event);
   }
 
   setProgressWidth(slideIndex) {

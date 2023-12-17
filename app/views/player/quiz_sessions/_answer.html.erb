@@ -1,0 +1,10 @@
+<%= form_with model: answer, url: "/quiz_sessions/#{quiz_session.id}/answer", method: :post do |f| %>
+  <% if answer.errors.any? %>
+    <p><%= answer.errors.full_messages %></p>
+  <% end %>
+  <div class="mb-3">
+    <%= f.label 'Your answer:', class: 'form-label' %>
+    <%= f.text_field :text, class: 'form-control' %>
+  </div>
+  <%= f.submit 'Send', class: 'btn btn-primary' %>
+<% end %>

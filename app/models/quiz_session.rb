@@ -16,4 +16,20 @@ class QuizSession < ApplicationRecord
     default: 'default',
     synchronous: 'synchronous'
   }
+
+  def current_question
+    questions[current_question_index]
+  end
+
+  def current_answers
+    quiz_answers.where(question: current_question).order(:created_at)
+  end
+
+  def active_player_ids
+    sessions_players.where(active: true).pluck(:user_id)
+  end
+
+  def host
+    @host ||= user
+  end
 end

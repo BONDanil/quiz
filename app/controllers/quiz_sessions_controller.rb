@@ -1,5 +1,6 @@
 class QuizSessionsController < ApplicationController
   before_action :validate_user!, only: %i[show start]
+  layout 'synchronous_quiz', except: %i[new]
 
   def new
     @quiz_session = QuizSession.new(name: "Session ##{current_user.quiz_sessions.count.next}")
@@ -18,7 +19,7 @@ class QuizSessionsController < ApplicationController
 
   def show
     if quiz_session.default?
-      render 'quiz_sessions/default/show'
+      render 'quiz_sessions/default/show', layout: 'application'
     elsif quiz_session.synchronous?
       render_proper_page
     end
@@ -26,9 +27,57 @@ class QuizSessionsController < ApplicationController
 
   def start
     # TODO: move to service
-    quiz_session.update(status: :in_progress)
-    quiz_session.broadcast_replace_to quiz_session, target: 'host-quiz', template: 'quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
-    quiz_session.broadcast_replace_to quiz_session, target: 'player-quiz', template: 'player/quiz_sessions/in_progress_session', locals: { quiz_session: quiz_session }
+    # TODO: change to render_later
+    quiz_session.update!(status: :in_progress)
+
+    quiz_session.broadcast_replace_to [quiz_session, current_user], target: 'host-quiz', template: 'quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
+    quiz_session.broadcast_replace_to quiz_session, target: 'player-quiz', template: 'player/quiz_sessions/in_progress_session', locals: { quiz_session: quiz_session, answer: QuizAnswer.new }
+  end
+
+  def mark_answer
+    answer = QuizAnswer.find(params[:quiz_answer][:id])
+
+    if answer
+      answer.update!(correct: params[:quiz_answer][:correct])
+    end
+  end
+
+  def next
+    quiz_session.increment!(:current_question_index)
+
+    quiz_session.broadcast_replace_to [quiz_session, current_user], target: 'host-quiz', template: 'quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
+    quiz_session.broadcast_replace_to quiz_session, target: 'player-quiz', template: 'player/quiz_sessions/in_progress_session', locals: { quiz_session: quiz_session, answer: QuizAnswer.new }
+  end
+
+  def rating
+    if quiz_session.current_question_index + 1 == quiz_session.questions_count
+      quiz_session.finished!
+    end
+
+    quiz_session.broadcast_replace_to [quiz_session, current_user], target: 'host-quiz', template: 'quiz_sessions/synchronous/session_rating', locals: { quiz_session: quiz_session }
+    quiz_session.broadcast_replace_to quiz_session, target: 'player-quiz', template: 'player/quiz_sessions/session_rating', locals: { quiz_session: quiz_session }
+    head :ok
+  end
+
+  def deactivate_player
+    sessions_player = SessionsPlayer.find(params[:sessions_player][:id])
+
+    if sessions_player
+      sessions_player.update!(active: false)
+    end
+
+    quiz_session.broadcast_replace_to [quiz_session, current_user], target: helpers.dom_id(sessions_player, :player), partial: 'quiz_sessions/synchronous/activate_player_form', locals: { sessions_player: sessions_player }
+    quiz_session.broadcast_replace_to [quiz_session, sessions_player.user], target: 'player-quiz', template: 'quiz_sessions/synchronous/eliminated_page'
+  end
+
+  def activate_player
+    sessions_player = SessionsPlayer.find(params[:sessions_player][:id])
+
+    if sessions_player
+      sessions_player.update!(active: true)
+    end
+
+    quiz_session.broadcast_replace_to [quiz_session, current_user], target: helpers.dom_id(sessions_player, :player), partial: 'quiz_sessions/synchronous/deactivate_player_form', locals: { sessions_player: sessions_player }
   end
 
   private
@@ -41,11 +90,11 @@ class QuizSessionsController < ApplicationController
 
   def render_proper_page
     if quiz_session.pending?
-      render 'quiz_sessions/synchronous/pending_session'
+      render 'quiz_sessions/synchronous/pending_session', locals: { quiz_session: quiz_session }
     elsif quiz_session.in_progress?
-      render 'quiz_sessions/synchronous/in_progress_session'
+      render 'quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
     elsif quiz_session.finished?
-      render 'quiz_sessions/synchronous/session_rating'
+      render 'quiz_sessions/synchronous/session_rating', locals: { quiz_session: quiz_session }
     end
   end
 

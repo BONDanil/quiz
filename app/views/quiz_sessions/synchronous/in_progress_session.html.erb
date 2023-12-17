@@ -1,6 +1,18 @@
 <%= turbo_frame_tag 'host-quiz' do %>
-  <!--  TODO: show answer-->
-  <%= render 'quiz_sessions/default/question', question: @quiz_session.questions[@quiz_session.current_question_index] %>
-  <br>
-  answers
+  <div data-controller="answers">
+    <%= render 'quiz_sessions/default/question', question: quiz_session.current_question, answer: 'visible' %>
+    <br>
+      <!-- TODO: render all active players and add only answers -->
+      <%= render 'quiz_sessions/synchronous/answers', quiz_answers: quiz_session.current_answers %>
+    <br>
+
+    <%= link_to 'Show rating', rating_quiz_session_path(quiz_session),
+                data: {
+                  turbo_method: :put,
+                  answers_target: 'ratingBtn',
+                  turbo_confirm: 'Are you sure? Maybe not all players responded!'
+                },
+                class: 'btn btn-primary'
+    %>
+  </div>
 <% end %>

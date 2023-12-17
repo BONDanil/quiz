@@ -13,10 +13,15 @@ module QuizSessions
           )
 
           if player.save
-            player.broadcast_append_to :players,
-                                       target: 'players-list',
-                                       partial: 'quiz_sessions/synchronous/player',
-                                       locals: { player: current_user }
+            quiz_session.broadcast_append_to [quiz_session, quiz_session.host],
+                                             target: 'players-host-list',
+                                             partial: 'quiz_sessions/synchronous/player',
+                                             locals: { sessions_player: player }
+
+            quiz_session.broadcast_append_to quiz_session,
+                                             target: 'players-list',
+                                             partial: 'player/quiz_sessions/player',
+                                             locals: { sessions_player: player }
           else
             context.fail!(errors: player.errors)
           end

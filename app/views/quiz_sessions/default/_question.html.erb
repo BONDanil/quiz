@@ -7,7 +7,9 @@
       <% if question.image.attached? %>
         <%= image_tag question.image, style: 'max-width: 30vw; max-height: 20vh;' %>
       <% end %>
-      <p class="card-text" id="answer" style="visibility: hidden" data-default-quiz-session-target="answer">Answer: <%= question.answer %></p>
+      <% unless answer == 'none' %>
+        <p class="card-text" id="answer" style="visibility: <%= answer %>" data-default-quiz-session-target="answer">Answer: <%= question.answer %></p>
+      <% end %>
     </div>
   </div>
 </div>

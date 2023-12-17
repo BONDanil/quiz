@@ -1,0 +1,12 @@
+<%= turbo_frame_tag 'player-quiz' do %>
+  <%= render 'quiz_sessions/synchronous/rating', quiz_session: quiz_session %>
+
+  <% if quiz_session.finished? %>
+    <%= link_to 'Home!', root_path, data: { turbo: false }, class: 'btn btn-success' %>
+  <% else %>
+    <div class="d-flex">
+      <h2>Next question soon</h2>
+      <%= render 'player/quiz_sessions/spinner' %>
+    </div>
+  <% end %>
+<% end %>

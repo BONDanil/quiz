@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_08_214847) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_17_182957) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -61,9 +61,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_214847) do
   create_table "quiz_answers", force: :cascade do |t|
     t.integer "quiz_session_id", null: false
     t.integer "user_id", null: false
-    t.integer "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "question_id"
+    t.string "text"
+    t.boolean "correct"
+    t.index ["question_id"], name: "index_quiz_answers_on_question_id"
+    t.index ["quiz_session_id", "question_id", "user_id"], name: "quiz_answers_unique_index", unique: true
     t.index ["quiz_session_id"], name: "index_quiz_answers_on_quiz_session_id"
     t.index ["user_id"], name: "index_quiz_answers_on_user_id"
   end
@@ -120,6 +124,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_214847) do
   add_foreign_key "categories", "users"
   add_foreign_key "questions", "categories"
   add_foreign_key "questions", "users"
+  add_foreign_key "quiz_answers", "questions"
   add_foreign_key "quiz_answers", "quiz_sessions"
   add_foreign_key "quiz_answers", "users"
   add_foreign_key "quiz_sessions", "users"

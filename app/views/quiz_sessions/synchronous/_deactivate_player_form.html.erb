@@ -1,0 +1,6 @@
+<%= turbo_frame_tag dom_id(sessions_player, :player) do %>
+  <%= form_with model: sessions_player, url: deactivate_player_quiz_session_path(sessions_player.quiz_session), method: :put do |f| %>
+    <%= f.hidden_field :id %>
+    <%= f.submit 'Deactivate player', data: { turbo_confirm: 'Are you sure you want to deactivate this user from this quiz?' }, class: 'btn btn-danger' %>
+  <% end %>
+<% end %>

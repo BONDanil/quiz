@@ -1,0 +1,7 @@
+<tr>
+  <td><%= answer.user.nickname %></td>
+  <td><%= answer.text %></td>
+  <td>
+    <%= render 'quiz_sessions/synchronous/mark_answer_form', answer: answer %>
+  </td>
+</tr>
