@@ -94,7 +94,7 @@ class QuizSessionsController < ApplicationController
       quiz_play_url = url_for(quiz_session) + '/play'
       qrcode = RQRCode::QRCode.new(quiz_play_url)
       svg = qrcode.as_svg(color: "000", shape_rendering: "crispEdges", module_size: 5, standalone: true, use_path: true)
-      render 'quiz_sessions/synchronous/pending_session', locals: { quiz_session: quiz_session, svg: svg }
+      render 'quiz_sessions/synchronous/pending_session', locals: { quiz_session: quiz_session, quiz_play_url: quiz_play_url, svg: svg }
     elsif quiz_session.in_progress?
       render 'quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
     elsif quiz_session.finished?
