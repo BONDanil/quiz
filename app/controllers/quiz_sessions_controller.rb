@@ -90,7 +90,11 @@ class QuizSessionsController < ApplicationController
 
   def render_proper_page
     if quiz_session.pending?
-      render 'quiz_sessions/synchronous/pending_session', locals: { quiz_session: quiz_session }
+      # TODO: refactor it (maybe use has_one :svg or just replace it to method)
+      quiz_play_url = url_for(quiz_session) + '/play'
+      qrcode = RQRCode::QRCode.new(quiz_play_url)
+      svg = qrcode.as_svg(color: "000", shape_rendering: "crispEdges", module_size: 5, standalone: true, use_path: true)
+      render 'quiz_sessions/synchronous/pending_session', locals: { quiz_session: quiz_session, svg: svg }
     elsif quiz_session.in_progress?
       render 'quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
     elsif quiz_session.finished?

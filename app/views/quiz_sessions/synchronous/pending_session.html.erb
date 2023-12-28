@@ -5,5 +5,9 @@
 
   <%= render 'quiz_sessions/synchronous/players', quiz_session: quiz_session %>
 
-  <%= link_to 'Start!', start_quiz_session_path, data: { turbo_method: :put }, class: 'btn btn-success' %>
+  <div class="d-flex flex-column align-items-center justify-content-center">
+    <h2>Use this for sharing quiz url:</h2>
+    <%= svg.html_safe %>
+    <%= link_to 'Start!', start_quiz_session_path, data: { turbo_method: :put }, class: 'btn btn-success mt-3' %>
+  </div>
 <% end %>
