@@ -1,6 +1,12 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  # See https://qameta.com/posts/default-url-options-in-ruby-on-rails/
+  # Rails.application.routes.default_url_options = {
+  #   host: "www.production-site.com",
+  #   protocol: "https"
+  # }
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
