@@ -1,4 +1,4 @@
-class QuizSessionsController < ApplicationController
+class Host::QuizSessionsController < ApplicationController
   before_action :validate_user!, only: %i[show start]
   layout 'synchronous_quiz', except: %i[new]
 
@@ -19,7 +19,7 @@ class QuizSessionsController < ApplicationController
 
   def show
     if quiz_session.default?
-      render 'quiz_sessions/default/show', layout: 'application'
+      render 'host/quiz_sessions/default/show', layout: 'application'
     elsif quiz_session.synchronous?
       render_proper_page
     end
@@ -30,7 +30,7 @@ class QuizSessionsController < ApplicationController
     # TODO: change to render_later
     quiz_session.update!(status: :in_progress)
 
-    quiz_session.broadcast_replace_to [quiz_session, current_user], target: 'host-quiz', template: 'quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
+    quiz_session.broadcast_replace_to [quiz_session, current_user], target: 'host-quiz', template: 'host/quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
     quiz_session.broadcast_replace_to quiz_session, target: 'player-quiz', template: 'player/quiz_sessions/in_progress_session', locals: { quiz_session: quiz_session, answer: QuizAnswer.new }
   end
 
@@ -45,7 +45,7 @@ class QuizSessionsController < ApplicationController
   def next
     quiz_session.increment!(:current_question_index)
 
-    quiz_session.broadcast_replace_to [quiz_session, current_user], target: 'host-quiz', template: 'quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
+    quiz_session.broadcast_replace_to [quiz_session, current_user], target: 'host-quiz', template: 'host/quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
     quiz_session.broadcast_replace_to quiz_session, target: 'player-quiz', template: 'player/quiz_sessions/in_progress_session', locals: { quiz_session: quiz_session, answer: QuizAnswer.new }
   end
 
@@ -54,7 +54,7 @@ class QuizSessionsController < ApplicationController
       quiz_session.finished!
     end
 
-    quiz_session.broadcast_replace_to [quiz_session, current_user], target: 'host-quiz', template: 'quiz_sessions/synchronous/session_rating', locals: { quiz_session: quiz_session }
+    quiz_session.broadcast_replace_to [quiz_session, current_user], target: 'host-quiz', template: 'host/quiz_sessions/synchronous/session_rating', locals: { quiz_session: quiz_session }
     quiz_session.broadcast_replace_to quiz_session, target: 'player-quiz', template: 'player/quiz_sessions/session_rating', locals: { quiz_session: quiz_session }
     head :ok
   end
@@ -66,8 +66,9 @@ class QuizSessionsController < ApplicationController
       sessions_player.update!(active: false)
     end
 
-    quiz_session.broadcast_replace_to [quiz_session, current_user], target: helpers.dom_id(sessions_player, :player), partial: 'quiz_sessions/synchronous/activate_player_form', locals: { sessions_player: sessions_player }
-    quiz_session.broadcast_replace_to [quiz_session, sessions_player.user], target: 'player-quiz', template: 'quiz_sessions/synchronous/eliminated_page'
+    quiz_session.broadcast_replace_to [quiz_session, current_user], target: helpers.dom_id(sessions_player, :player), partial: 'host/quiz_sessions/synchronous/activate_player_form', locals: { sessions_player: sessions_player }
+    # TODO: replace and rename to 'player/excluded_page'
+    quiz_session.broadcast_replace_to [quiz_session, sessions_player.user], target: 'player-quiz', template: 'host/quiz_sessions/synchronous/eliminated_page'
   end
 
   def activate_player
@@ -77,7 +78,7 @@ class QuizSessionsController < ApplicationController
       sessions_player.update!(active: true)
     end
 
-    quiz_session.broadcast_replace_to [quiz_session, current_user], target: helpers.dom_id(sessions_player, :player), partial: 'quiz_sessions/synchronous/deactivate_player_form', locals: { sessions_player: sessions_player }
+    quiz_session.broadcast_replace_to [quiz_session, current_user], target: helpers.dom_id(sessions_player, :player), partial: 'host/quiz_sessions/synchronous/deactivate_player_form', locals: { sessions_player: sessions_player }
   end
 
   private
@@ -94,11 +95,11 @@ class QuizSessionsController < ApplicationController
       quiz_play_url = url_for(quiz_session) + '/play'
       qrcode = RQRCode::QRCode.new(quiz_play_url)
       svg = qrcode.as_svg(color: "000", shape_rendering: "crispEdges", module_size: 5, standalone: true, use_path: true)
-      render 'quiz_sessions/synchronous/pending_session', locals: { quiz_session: quiz_session, quiz_play_url: quiz_play_url, svg: svg }
+      render 'host/quiz_sessions/synchronous/pending_session', locals: { quiz_session: quiz_session, quiz_play_url: quiz_play_url, svg: svg }
     elsif quiz_session.in_progress?
-      render 'quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
+      render 'host/quiz_sessions/synchronous/in_progress_session', locals: { quiz_session: quiz_session }
     elsif quiz_session.finished?
-      render 'quiz_sessions/synchronous/session_rating', locals: { quiz_session: quiz_session }
+      render 'host/quiz_sessions/synchronous/session_rating', locals: { quiz_session: quiz_session }
     end
   end
 

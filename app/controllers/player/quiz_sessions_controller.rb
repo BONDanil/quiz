@@ -27,7 +27,7 @@ class Player::QuizSessionsController < ApplicationController
     if answer.save
       quiz_session.broadcast_append_to quiz_session,
                                        target: 'answers-list',
-                                       partial: 'quiz_sessions/synchronous/answer',
+                                       partial: 'host/quiz_sessions/synchronous/answer',
                                        locals: { answer: answer }
 
       quiz_session.broadcast_replace_to [quiz_session, current_user], target: "player-quiz", template: 'player/quiz_sessions/waiting', locals: { quiz_session: quiz_session }

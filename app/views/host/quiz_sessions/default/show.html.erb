@@ -17,7 +17,7 @@
       <% @quiz_session.questions.each_with_index do |question, index| %>
         <% dynamic_class = index == 0 ? classes + " active" : classes %>
         <div class="<%=dynamic_class%>">
-          <%= render 'quiz_sessions/default/question', question: question, answer: 'hidden' %>
+          <%= render 'host/quiz_sessions/default/question', question: question, answer: 'hidden' %>
         </div>
       <% end %>
     </div>
