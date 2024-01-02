@@ -1,0 +1,17 @@
+<table class="table" id="ratingTable" data-controller="rating">
+  <thead>
+  <tr>
+    <th scope="col">Nickname</th>
+    <th scope="col">Points</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <% quiz_session.players.find_each do |player| %>
+    <tr>
+      <td><%= player.nickname %></td>
+      <td><%= player.points_count(quiz_session) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

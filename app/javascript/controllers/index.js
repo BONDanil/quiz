@@ -4,11 +4,20 @@
 
 import { application } from "./application"
 
+import AnswersController from "./answers_controller"
+application.register("answers", AnswersController)
+
+import DefaultQuizSessionController from "./default_quiz_session_controller"
+application.register("default-quiz-session", DefaultQuizSessionController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
 import ImageController from "./image_controller"
 application.register("image", ImageController)
 
-import QuizSessionController from "./quiz_session_controller"
-application.register("quiz-session", QuizSessionController)
+import RatingController from "./rating_controller"
+application.register("rating", RatingController)
+
+import Clipboard from 'stimulus-clipboard'
+application.register('clipboard', Clipboard)

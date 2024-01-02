@@ -1,0 +1,15 @@
+<div class="card text-bg-secondary" style="width: 50vw; height: 50vh">
+<!--  <img src="" class="card-img-top" alt="...">-->
+  <div class="card-body">
+    <div class="d-flex flex-column align-items-center justify-content-center h-100">
+      <h5 class="card-title"><%= question.category.name %></h5>
+      <p class="card-text"><%= question.text %></p>
+      <% if question.image.attached? %>
+        <%= image_tag question.image, style: 'max-width: 30vw; max-height: 20vh;' %>
+      <% end %>
+      <% unless answer == 'none' %>
+        <p class="card-text" id="answer" style="visibility: <%= answer %>" data-default-quiz-session-target="answer">Answer: <%= question.answer %></p>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<%= turbo_frame_tag 'player-quiz' do %>
+  <div class="d-flex">
+    <h2>Waiting for the host to start the quiz</h2>
+    <%= render 'player/quiz_sessions/spinner' %>
+  </div>
+  <hr>
+  <h2>Connected players:</h2>
+  <%= render 'player/quiz_sessions/players', quiz_session: quiz_session %>
+<% end %>

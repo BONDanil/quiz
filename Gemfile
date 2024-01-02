@@ -17,6 +17,8 @@ gem 'open-uri'
 
 gem "interactor", "~> 3.0"
 
+gem "rqrcode", "~> 2.0"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.8"
 
@@ -87,3 +89,9 @@ group :test do
   gem "selenium-webdriver"
 
 end
+
+group :production do
+  gem 'pg'
+end
+
+gem "dockerfile-rails", ">= 1.6", :group => :development

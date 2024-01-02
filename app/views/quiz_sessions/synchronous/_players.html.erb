@@ -1,0 +1,11 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Nickname</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody id="players-host-list" class="table-striped">
+    <%= render partial: 'quiz_sessions/synchronous/player', collection: quiz_session.sessions_players, as: :sessions_player %>
+  </tbody>
+</table>
