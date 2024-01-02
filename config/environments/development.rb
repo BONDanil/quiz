@@ -3,9 +3,13 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # See https://qameta.com/posts/default-url-options-in-ruby-on-rails/
   # Rails.application.routes.default_url_options = {
-  #   host: "www.production-site.com",
-  #   protocol: "https"
+  #   host: "http://192.168.31.52:3000",
+  #   protocol: "http"
   # }
+  Rails.application.routes.default_url_options = {
+    host: "hare-calm-panda.ngrok-free.app",
+    protocol: "http"
+  }
 
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -14,7 +18,7 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
-  config.hosts << "slow-spoons-cry.loca.lt"
+  config.hosts << "hare-calm-panda.ngrok-free.app"
   # config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
 
   # Do not eager load code on boot.
