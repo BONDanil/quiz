@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :categories
   resources :attachments, only: %i[destroy]
 
+  resources :quiz_sessions, only: %i[index]
+
   scope module: 'host' do
     resources :quiz_sessions, only: %i[new create show] do
       member do

@@ -1,0 +1,36 @@
+<div style="width: 100vw">
+  <p class="text-center" style="color: green"><%= notice %></p>
+
+  <h1 class="text-center">Quiz sessions</h1>
+
+  <div id="questions" class="d-flex flex-column align-items-center">
+    <div style="width: 75%">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">Status</th>
+            <th scope="col">Role</th>
+            <th scope="col">Questions count</th>
+            <th scope="col">Players count</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @quiz_sessions.find_each do |quiz_session| %>
+          <tr>
+            <th><%= quiz_session.name || '-' %></th>
+            <th><%= quiz_session.session_type %></th>
+            <th><%= quiz_session.status %></th>
+            <th><%= quiz_session.user_id == current_user.id ? 'Host' : 'Player' %></th>
+            <th><%= quiz_session.questions.count %></th>
+            <th><%= quiz_session.players.count %></th>
+            <th><%= link_to 'Show', quiz_session, class: 'btn btn-warning' %></th>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

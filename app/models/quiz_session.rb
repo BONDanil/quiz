@@ -32,4 +32,10 @@ class QuizSession < ApplicationRecord
   def host
     @host ||= user
   end
+
+  scope :related_to_user, ->(user) {
+    includes(:sessions_players)
+      .where(user_id: user.id)
+      .or(QuizSession.where(sessions_players: { user_id: user.id }))
+  }
 end
