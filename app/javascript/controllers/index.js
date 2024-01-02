@@ -3,7 +3,6 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
-import Clipboard from 'stimulus-clipboard'
 
 import AnswersController from "./answers_controller"
 application.register("answers", AnswersController)
@@ -20,4 +19,5 @@ application.register("image", ImageController)
 import RatingController from "./rating_controller"
 application.register("rating", RatingController)
 
+import Clipboard from 'stimulus-clipboard'
 application.register('clipboard', Clipboard)

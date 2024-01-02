@@ -10,7 +10,7 @@
         <tr>
           <th scope="col">Category</th>
           <th scope="col">Questions count</th>
-          <th scope="col">Already played</th>
+          <th scope="col">Unplayed</th>
         </tr>
         </thead>
         <tbody>
@@ -18,7 +18,7 @@
           <tr>
             <td><%= category.name %></td>
             <td><%= category.questions.count %></td>
-            <td><%= category.questions.count(&:was_used?) %></td>
+            <td><%= category.questions.count(&:not_used?) %></td>
           </tr>
         <% end %>
         </tbody>

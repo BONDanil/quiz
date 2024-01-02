@@ -5,8 +5,8 @@ class Question < ApplicationRecord
   has_many :quiz_sessions, through: :sessions_questions
   has_one_attached :image
 
-  def was_used?
-    quiz_sessions.any?
+  def not_used?
+    quiz_sessions.blank?
   end
 
   scope :not_used, -> {
