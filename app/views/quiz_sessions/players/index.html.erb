@@ -1,0 +1,25 @@
+<div style="width: 100vw">
+  <h1 class="text-center">Session's Players</h1>
+
+  <div id="questions" class="d-flex flex-column align-items-center">
+    <div style="width: 75%">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th scope="col">Nickname</th>
+            <th scope="col">Status</th>
+            <th scope="col">Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--TODO: add sorting by points-->
+          <% @players.find_each do |player| %>
+            <tr>
+              <%= render 'quiz_sessions/players/player', player: player %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

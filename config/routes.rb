@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   resources :categories
   resources :attachments, only: %i[destroy]
 
-  resources :quiz_sessions, only: %i[index]
+  resources :quiz_sessions, only: %i[index] do
+    scope module: 'quiz_sessions' do
+      resources :questions, only: %i[index]
+      resources :players, only: %i[index]
+    end
+  end
 
   scope module: 'host' do
     resources :quiz_sessions, only: %i[new create show] do

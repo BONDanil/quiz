@@ -1,0 +1,26 @@
+<td>
+  <%= question.text %>
+</td>
+<td>
+  <%= question.answer %>
+</td>
+<td>
+  <% answers = question.session_answers(@quiz_session) %>
+  Correct: <%= answers.where(correct: true).count %> / <%= answers.count %>
+  <div class="accordion" id="<%= question.id %>">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-heading<%= question.id %>">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse<%= question.id %>" aria-expanded="false" aria-controls="flush-collapse<%= question.id %>">
+          All answers
+        </button>
+      </h2>
+      <div id="flush-collapse<%= question.id %>" class="accordion-collapse collapse" aria-labelledby="flush-heading<%= question.id %>" data-bs-parent="#<%= question.id %>">
+        <div class="accordion-body">
+          <% answers.find_each do |answer| %>
+            <p><%= answer.user.nickname %>: <%= answer.text %></p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</td>
