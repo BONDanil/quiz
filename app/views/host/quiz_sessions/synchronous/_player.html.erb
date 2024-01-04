@@ -3,9 +3,9 @@
   <td>
     <%= turbo_frame_tag dom_id(sessions_player, :player) do %>
       <% if sessions_player.active? %>
-        <%= render 'quiz_sessions/synchronous/deactivate_player_form', sessions_player: sessions_player %>
+        <%= render 'host/quiz_sessions/synchronous/deactivate_player_form', sessions_player: sessions_player %>
       <% else %>
-        <%= render 'quiz_sessions/synchronous/activate_player_form', sessions_player: sessions_player %>
+        <%= render 'host/quiz_sessions/synchronous/activate_player_form', sessions_player: sessions_player %>
       <% end %>
     <% end %>
   </td>

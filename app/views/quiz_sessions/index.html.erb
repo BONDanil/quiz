@@ -1,0 +1,40 @@
+<div style="width: 100vw">
+  <p class="text-center" style="color: green"><%= notice %></p>
+
+  <h1 class="text-center">Quiz sessions</h1>
+
+  <div id="questions" class="d-flex flex-column align-items-center">
+    <div style="width: 75%">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">Status</th>
+            <th scope="col">Role</th>
+            <th scope="col">Players count</th>
+            <th scope="col">Questions count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @quiz_sessions.find_each do |quiz_session| %>
+          <tr>
+            <td><%= quiz_session.id %></td>
+            <td><%= quiz_session.name || '-' %></td>
+            <td><%= quiz_session.session_type %></td>
+            <td><%= quiz_session.status %></td>
+            <td><%= quiz_session.user_id == current_user.id ? 'Host' : 'Player' %></td>
+            <% if quiz_session.synchronous? %>
+              <td><%= link_to "#{quiz_session.players.count}", quiz_session_players_path(quiz_session) %></td>
+            <% else %>
+              <td>-</td>
+            <% end %>
+            <td><%= link_to "#{quiz_session.questions.count}", quiz_session_questions_path(quiz_session) %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

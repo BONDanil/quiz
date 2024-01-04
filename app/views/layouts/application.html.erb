@@ -13,7 +13,7 @@
 
   <body>
     <div class="d-flex">
-      <% unless params.values_at(:controller, :action) == %w[quiz_sessions show] || params.values_at(:controller, :action) == %w[player/quiz_sessions show] || params[:controller]&.split('/').first == 'devise' || params[:controller]&.split('/').first == 'users' %>
+      <% unless params.values_at(:controller, :action) == %w[host/quiz_sessions show] || params.values_at(:controller, :action) == %w[player/quiz_sessions show] || params[:controller]&.split('/').first == 'devise' || params[:controller]&.split('/').first == 'users' %>
         <%= render 'layouts/sidebar' %>
       <% end %>
       <%= yield %>

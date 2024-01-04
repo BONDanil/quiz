@@ -14,4 +14,8 @@ class Question < ApplicationRecord
       .group('questions.id')
       .having('COUNT(quiz_sessions.id) = 0')
   }
+
+  def session_answers(quiz_session)
+    quiz_session.quiz_answers.where(question: self)
+  end
 end

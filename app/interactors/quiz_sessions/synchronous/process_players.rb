@@ -15,7 +15,7 @@ module QuizSessions
           if player.save
             quiz_session.broadcast_append_to [quiz_session, quiz_session.host],
                                              target: 'players-host-list',
-                                             partial: 'quiz_sessions/synchronous/player',
+                                             partial: 'host/quiz_sessions/synchronous/player',
                                              locals: { sessions_player: player }
 
             quiz_session.broadcast_append_to quiz_session,

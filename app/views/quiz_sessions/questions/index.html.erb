@@ -1,7 +1,5 @@
 <div style="width: 100vw">
-  <p class="text-center" style="color: green"><%= notice %></p>
-
-  <h1 class="text-center">Questions</h1>
+  <h1 class="text-center">Session's Questions</h1>
 
   <div id="questions" class="d-flex flex-column align-items-center">
     <div style="width: 75%">
@@ -9,24 +7,22 @@
         <thead>
         <tr>
           <th scope="col">Id</th>
-          <th scope="col">Text</th>
-          <th scope="col">Answer</th>
           <th scope="col">Category</th>
-          <th scope="col">Actions</th>
+          <th scope="col">Text</th>
+          <th scope="col">Correct Answer</th>
+          <% if @quiz_session.synchronous? %>
+            <th scope="col">Players Answers</th>
+          <% end %>
         </tr>
         </thead>
         <tbody>
-        <% @questions.each do |question| %>
+        <% @questions.find_each do |question| %>
           <tr>
             <%= render question %>
           </tr>
         <% end %>
         </tbody>
       </table>
-    </div>
-
-    <div class="w-75">
-      <%= link_to "New question", new_question_path, class: 'btn btn-success' %>
     </div>
   </div>
 </div>
