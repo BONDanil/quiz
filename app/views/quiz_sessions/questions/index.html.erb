@@ -6,9 +6,12 @@
       <table class="table table-striped align-middle">
         <thead>
         <tr>
+          <th scope="col">Category</th>
           <th scope="col">Text</th>
           <th scope="col">Correct Answer</th>
-          <th scope="col">Players Answers</th>
+          <% if @quiz_session.synchronous? %>
+            <th scope="col">Players Answers</th>
+          <% end %>
         </tr>
         </thead>
         <tbody>

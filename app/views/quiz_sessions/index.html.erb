@@ -24,7 +24,11 @@
             <th><%= quiz_session.session_type %></th>
             <th><%= quiz_session.status %></th>
             <th><%= quiz_session.user_id == current_user.id ? 'Host' : 'Player' %></th>
-            <th><%= link_to "#{quiz_session.players.count}", quiz_session_players_path(quiz_session) %></th>
+            <% if quiz_session.synchronous? %>
+              <th><%= link_to "#{quiz_session.players.count}", quiz_session_players_path(quiz_session) %></th>
+            <% else %>
+              <th>-</th>
+            <% end %>
             <th><%= link_to "#{quiz_session.questions.count}", quiz_session_questions_path(quiz_session) %></th>
             <th><%= link_to 'Show', quiz_session, class: 'btn btn-warning' %></th>
           </tr>
