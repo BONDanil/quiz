@@ -3,6 +3,8 @@ class QuizSessions::PlayersController < ApplicationController
 
   def index
     @players = @quiz_session.sessions_players
+                            .sort_by { |player| player.points }
+                            .reverse
   end
 
   private
