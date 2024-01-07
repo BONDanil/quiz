@@ -7,6 +7,9 @@ import { application } from "./application"
 import AnswersController from "./answers_controller"
 application.register("answers", AnswersController)
 
+import CategoriesController from "./categories_controller"
+application.register("categories", CategoriesController)
+
 import DefaultQuizSessionController from "./default_quiz_session_controller"
 application.register("default-quiz-session", DefaultQuizSessionController)
 
