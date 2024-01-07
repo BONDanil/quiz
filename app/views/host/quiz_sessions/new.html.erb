@@ -5,9 +5,23 @@
       <div class="form-inputs mb-3">
         <%= f.input :name, class: "form-control" %>
         <%= f.input :questions_count, class: "form-control" %>
-        <%= f.check_box :only_free, { checked: 'checked' }, true, false %>
-        <%= f.label :only_free, "Only unplayed questions", class: "form-label" %>
         <%= f.input :session_type, collection: QuizSession.session_types.values %>
+        <label class="form-label">Select categories</label>
+        <div data-controller="categories">
+          <%= f.check_box :all_categories, { checked: 'checked', class: "form-check-input", data: { action: 'categories#click' } }, true, false %>
+          <%= f.label :all_categories, 'All categories', class: "form-label" %>
+          <div data-categories-target="categoriesList" class="d-flex flex-wrap visually-hidden">
+            <% current_user.categories.find_each do |category| %>
+              <div class="d-flex">
+                <%= f.check_box :category_ids, { checked: 'checked', class: "form-check-input me-1", multiple: true }, category.id, false %>
+                <%= f.label :category_ids, category.name, class: "form-label me-3" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <hr>
+        <%= f.check_box :only_free, { checked: 'checked', class: "form-check-input" }, true, false %>
+        <%= f.label :only_free, "Only unplayed questions", class: "form-label" %>
       </div>
       <% flash.each do |type, msg| %>
         <div style="color: red">

@@ -108,6 +108,6 @@ class Host::QuizSessionsController < ApplicationController
   end
 
   def quiz_session_params
-    params.require(:quiz_session).permit(:name, :questions_count, :only_free, :session_type)
+    params.require(:quiz_session).permit(:name, :questions_count, :only_free, :session_type, category_ids: [])
   end
 end

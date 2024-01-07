@@ -2,11 +2,15 @@ module QuizSessions
   class Create
     include Interactor
 
-    delegate :user, :name, :only_free, :session_type, to: :context
+    delegate :user, :name, :only_free, :session_type, :category_ids, to: :context
 
     def call
       if questions_count.zero?
         context.fail!(errors: "Questions count must be positive number.")
+      end
+
+      if category_ids.blank?
+        context.fail!(errors: "Must be selected at least one questions category.")
       end
 
       available_questions_count = available_questions.pluck(:id).count
@@ -41,9 +45,18 @@ module QuizSessions
     def available_questions
       @available_questions ||= begin
         questions = user.questions
-        questions = user.questions.not_used if only_free
+        questions = filter_by_categories(questions)
+        questions = filter_not_used(questions) if only_free
         questions
       end
+    end
+
+    def filter_by_categories(scope)
+      scope.where(category_id: category_ids)
+    end
+
+    def filter_not_used(scope)
+      scope.not_used
     end
   end
 end
