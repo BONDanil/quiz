@@ -22,11 +22,39 @@
     <li class="nav-item">
       <%= link_to 'Quiz Sessions', quiz_sessions_path, class: "nav-link text-white #{' active' if params[:controller] == 'quiz_sessions' }"%>
     </li>
-    <li class="nav-item">
-      <%= link_to 'Questions', questions_path, class: "nav-link text-white #{' active' if params[:controller] == 'questions' }"%>
+    <li>
+      <button class="dropdown-toggle btn btn-toggle align-items-center rounded text-white w-100 text-start ps-3" data-bs-toggle="collapse" data-bs-target="#questions-collapse" aria-expanded="true">
+        Questions
+      </button>
+      <div class="collapse <%= 'show' if params[:controller] == 'questions' %>" id="questions-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+          <hr>
+          <li>
+            <%= link_to 'My Questions', questions_path, class: "nav-link text-white #{' active' if params[:controller] == 'questions' && !params[:general] }"%>
+          </li>
+          <li>
+            <%= link_to 'General Questions', questions_path(general: true), class: "nav-link text-white #{' active' if params[:controller] == 'questions' && !!params[:general] }"%>
+          </li>
+          <hr>
+        </ul>
+      </div>
     </li>
     <li class="nav-item">
-      <%= link_to 'Categories', categories_path, class: "nav-link text-white #{' active' if params[:controller] == 'categories' }"%>
+      <button class="dropdown-toggle btn btn-toggle align-items-center rounded text-white w-100 text-start ps-3" data-bs-toggle="collapse" data-bs-target="#categories-collapse" aria-expanded="true">
+        Categories
+      </button>
+      <div class="collapse <%= 'show' if params[:controller] == 'categories' %>" id="categories-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+          <hr>
+          <li>
+            <%= link_to 'My Categories', categories_path, class: "nav-link text-white #{' active' if params[:controller] == 'categories' && !params[:general] }"%>
+          </li>
+          <li>
+            <%= link_to 'General Categories', categories_path(general: true), class: "nav-link text-white #{' active' if params[:controller] == 'categories' && !!params[:general] }"%>
+          </li>
+          <hr>
+        </ul>
+      </div>
     </li>
   </ul>
   <hr>

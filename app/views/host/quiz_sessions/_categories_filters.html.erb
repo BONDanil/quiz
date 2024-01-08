@@ -1,0 +1,40 @@
+<div data-controller="categories">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" data-bs-target="#tabs-1" href="#">My Categories</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" data-bs-target="#tabs-2">General Categories</a>
+    </li>
+  </ul>
+  <div class="tab-content mt-3 ps-3">
+    <div class="tab-pane show active" id="tabs-1" role="tabpanel" aria-labelledby="tabs-tab1">
+      <input type="checkbox" class="btn-check" id="myCategories" autocomplete="off" checked data-action="categories#my">
+      <label class="btn btn-outline-primary btn-sm mb-2" for="myCategories">Uncheck all</label>
+      <div data-categories-target="myCategories" class="d-flex flex-wrap">
+        <% current_user.categories.find_each do |category| %>
+          <div class="d-flex">
+            <%= f.check_box :category_ids, { checked: 'checked', class: "form-check-input me-1", multiple: true }, category.id, false %>
+            <%= f.label :category_ids, category.name, class: "form-label me-3" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="tab-pane" id="tabs-2" role="tabpanel" aria-labelledby="tabs-2">
+      <input type="checkbox" class="btn-check" id="generalCategories" autocomplete="off" data-action="categories#general">
+      <label class="btn btn-outline-primary btn-sm mb-2" for="generalCategories">Check all</label>
+      <div data-categories-target="generalCategories" class="d-flex flex-wrap">
+        <% Category.general.find_each do |category| %>
+          <div class="d-flex">
+            <%= f.check_box :category_ids, { checked: 'unchecked', class: "form-check-input me-1", multiple: true }, category.id, false %>
+            <%= f.label :category_ids, category.name, class: "form-label me-3" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex align-items-center mt-3">
+    Selected:
+    <span class="badge rounded-pill bg-success ms-1" data-categories-target="selectedCount"></span>
+  </div>
+</div>
