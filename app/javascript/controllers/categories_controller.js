@@ -1,33 +1,75 @@
 import { Controller } from "@hotwired/stimulus"
+import { Tab } from "bootstrap"
 
 // Connects to data-controller="categories"
 export default class extends Controller {
-  static targets = ['categoriesList']
+  static targets = ['myCategories', 'generalCategories', 'selectedCount']
 
   connect() {
+    this.launchTabs();
+    this.recountSelected();
+    this.listenCheckboxes();
   }
 
-  click() {
-    if ($(event.target).is(':checked')) {
-      // Checked 'All categories'
-      this.checkAll();
+  launchTabs() {
+    this.navLinks = $(this.element).find('.nav-link').get();
+    this.navLinks.forEach(function (triggerEl) {
+      let tabTrigger = new Tab(triggerEl);
+
+      triggerEl.addEventListener('click', function (event) {
+        event.preventDefault();
+        tabTrigger.show();
+      })
+    });
+  }
+
+  listenCheckboxes() {
+    this.element.addEventListener('change', () => {
+      this.recountSelected();
+    });
+  }
+
+  my() {
+    let target = $(event.target);
+
+    if (target.is(':checked')) {
+      this.checkAll('my');
+      target.parent().find('label.btn').get(0).innerHTML = 'Uncheck all';
     } else {
-      // Unchecked 'All categories'
-      this.uncheckAll();
+      this.uncheckAll('my');
+      target.parent().find('label.btn').get(0).innerHTML = 'Check all';
     }
   }
 
-  checkAll() {
-    $(this.categoriesListTarget).addClass('visually-hidden');
-    $('input[name="quiz_session[category_ids][]"]').each(function() {
+  general() {
+    let target = $(event.target);
+
+    if (target.is(':checked')) {
+      this.checkAll('general');
+      target.parent().find('label.btn').get(0).innerHTML = 'Uncheck all';
+    } else {
+      this.uncheckAll('general');
+      target.parent().find('label.btn').get(0).innerHTML = 'Check all';
+    }
+  }
+
+  checkAll(option) {
+    let categoriesList = option === 'my' ? $(this.myCategoriesTarget) : $(this.generalCategoriesTarget);
+
+    categoriesList.find('input[name="quiz_session[category_ids][]"]').each(function() {
       this.checked = true;
     });
   }
 
-  uncheckAll() {
-    $(this.categoriesListTarget).removeClass('visually-hidden');
-    $('input[name="quiz_session[category_ids][]"]').each(function() {
+  uncheckAll(option) {
+    let categoriesList = option === 'my' ? $(this.myCategoriesTarget) : $(this.generalCategoriesTarget);
+
+    categoriesList.find('input[name="quiz_session[category_ids][]"]').each(function() {
       this.checked = false;
     });
+  }
+
+  recountSelected() {
+    this.selectedCountTarget.innerHTML = $('input[name="quiz_session[category_ids][]"]:checked').length;
   }
 }
