@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions or /questions.json
   def index
-    @questions = current_user.questions
+    @questions = !!params[:general] ? Question.general : current_user.questions
   end
 
   # GET /questions/1 or /questions/1.json

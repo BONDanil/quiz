@@ -15,6 +15,10 @@ class Question < ApplicationRecord
       .having('COUNT(quiz_sessions.id) = 0')
   }
 
+  scope :general, -> {
+    where(user_id: nil)
+  }
+
   def session_answers(quiz_session)
     quiz_session.quiz_answers.where(question: self)
   end
