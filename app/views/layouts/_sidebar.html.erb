@@ -28,7 +28,6 @@
       </button>
       <div class="collapse <%= 'show' if params[:controller] == 'questions' %>" id="questions-collapse">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-          <hr>
           <li>
             <%= link_to 'My Questions', questions_path, class: "nav-link text-white #{' active' if params[:controller] == 'questions' && !params[:general] }"%>
           </li>
@@ -45,7 +44,6 @@
       </button>
       <div class="collapse <%= 'show' if params[:controller] == 'categories' %>" id="categories-collapse">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-          <hr>
           <li>
             <%= link_to 'My Categories', categories_path, class: "nav-link text-white #{' active' if params[:controller] == 'categories' && !params[:general] }"%>
           </li>
