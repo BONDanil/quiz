@@ -2,7 +2,6 @@
   <div data-controller="answers">
     <%= render 'host/quiz_sessions/default/question', question: quiz_session.current_question, answer: 'visible' %>
     <br>
-      <!-- TODO: render all active players and add only answers -->
       <%= render 'host/quiz_sessions/synchronous/answers', quiz_answers: quiz_session.current_answers %>
     <br>
 

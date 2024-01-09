@@ -26,6 +26,10 @@ class User < ApplicationRecord
     QuizAnswer.where(quiz_session: quiz_session, user: self, correct: true).count
   end
 
+  enum providers: {
+    google: :google_oauth2
+  }
+
   private
 
   def self.from_google(email:, uid:, image_url:)
@@ -39,7 +43,7 @@ class User < ApplicationRecord
                 password: password,
                 nickname: email.split('@').first,
                 uid: uid,
-                provider: 'google_oauth2')
+                provider: providers[:google])
 
     user.attach_profile_picture_from_url(image_url)
 
