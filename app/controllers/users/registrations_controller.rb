@@ -15,7 +15,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def google_oauth?(user)
-    # TODO: get rid of magic string
-    user.provider == 'google_oauth2'
+    user.provider == User.providers[:google]
   end
 end
