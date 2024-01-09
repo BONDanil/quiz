@@ -1,5 +1,5 @@
 class Host::QuizSessionsController < ApplicationController
-  before_action :validate_user!, only: %i[show start]
+  before_action :validate_user!, except: %i[new create]
   layout 'synchronous_quiz', except: %i[new]
 
   def new

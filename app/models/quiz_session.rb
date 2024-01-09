@@ -17,6 +17,10 @@ class QuizSession < ApplicationRecord
     synchronous: 'synchronous'
   }
 
+  def host
+    @host ||= user
+  end
+
   def current_question
     questions[current_question_index]
   end
