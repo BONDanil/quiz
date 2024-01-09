@@ -25,16 +25,6 @@ class QuizSession < ApplicationRecord
     quiz_answers.where(question: current_question).order(:created_at)
   end
 
-  # TODO: remove unused def
-  def active_player_ids
-    sessions_players.where(active: true).pluck(:user_id)
-  end
-
-  # TODO: remove unused def
-  def host
-    @host ||= user
-  end
-
   scope :related_to_user, ->(user) {
     includes(:sessions_players)
       .where(user_id: user.id)
