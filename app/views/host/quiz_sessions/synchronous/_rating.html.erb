@@ -7,9 +7,12 @@
   </thead>
   <tbody>
 
-  <% quiz_session.players.find_each do |player| %>
+  <% quiz_session.players.each do |player| %>
     <tr>
-      <td><%= player.nickname %></td>
+      <td>
+        <%= player_avatar(player) %>
+        <%= player.nickname %>
+      </td>
       <td><%= player.points_count(quiz_session) %></td>
     </tr>
   <% end %>

@@ -1,5 +1,8 @@
 <tr>
-  <td><%= answer.user.nickname %></td>
+  <td>
+    <%= player_avatar(answer.user) %>
+    <%= answer.user.nickname %>
+  </td>
   <td><%= answer.text %></td>
   <td>
     <%= render 'host/quiz_sessions/synchronous/mark_answer_form', answer: answer %>

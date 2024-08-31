@@ -1,5 +1,8 @@
 <tr>
-  <td><%= sessions_player.user.nickname %></td>
+  <td>
+    <%= player_avatar(sessions_player.user) %>
+    <%= sessions_player.user.nickname %>
+  </td>
   <td>
     <%= turbo_frame_tag dom_id(sessions_player, :player) do %>
       <% if sessions_player.active? %>

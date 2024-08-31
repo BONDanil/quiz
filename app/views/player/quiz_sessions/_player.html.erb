@@ -1,3 +1,8 @@
 <tr>
-  <td><%= sessions_player.user.nickname %></td>
+  <td>
+    <div>
+      <%= player_avatar(sessions_player.user) %>
+      <%= sessions_player.user.nickname %>
+    </div>
+  </td>
 </tr>
