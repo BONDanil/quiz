@@ -30,7 +30,7 @@ class Player::QuizSessionsController < ApplicationController
                                        partial: 'host/quiz_sessions/synchronous/answer',
                                        locals: { answer: answer }
 
-      quiz_session.broadcast_replace_to [quiz_session, current_user], target: "player-quiz", template: 'player/quiz_sessions/waiting', locals: { quiz_session: quiz_session }
+      quiz_session.broadcast_replace_to [quiz_session, current_user], target: "player-quiz", template: 'player/quiz_sessions/waiting', locals: { quiz_session: quiz_session, question: }
     else
       render turbo_stream: turbo_stream.replace('answer_form', partial: 'player/quiz_sessions/answer', locals: { answer: answer, quiz_session: quiz_session })
     end
@@ -43,7 +43,7 @@ class Player::QuizSessionsController < ApplicationController
       render 'player/quiz_sessions/pending_session', locals: { quiz_session: quiz_session }
     elsif quiz_session.in_progress?
       if quiz_session.quiz_answers.where(user: current_user, question: question).any?
-        render 'player/quiz_sessions/waiting', locals: { quiz_session: quiz_session }
+        render 'player/quiz_sessions/waiting', locals: { quiz_session: quiz_session, question: }
       else
         render 'player/quiz_sessions/in_progress_session', locals: { quiz_session: quiz_session, answer: QuizAnswer.new }
       end
