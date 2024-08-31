@@ -1,25 +1,13 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  # See https://qameta.com/posts/default-url-options-in-ruby-on-rails/
-  # Rails.application.routes.default_url_options = {
-  #   host: "http://192.168.31.52:3000",
-  #   protocol: "http"
-  # }
-  Rails.application.routes.default_url_options = {
-    host: "hare-calm-panda.ngrok-free.app",
-    protocol: "http"
-  }
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
+  # config.enable_reloading = true
   config.cache_classes = false
-
-  config.hosts << "hare-calm-panda.ngrok-free.app"
-  # config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
 
   # Do not eager load code on boot.
   config.eager_load = false
@@ -80,4 +68,16 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # config.action_controller.raise_on_missing_callback_actions = true
+
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+
+  config.assets.debug = true
+
+  config.hosts << /[a-z0-9\-]+\.ngrok-free\.app/
 end
+
+Rails.application.routes.default_url_options[:host] = "localhost:3000"
