@@ -63,9 +63,8 @@ class Player::QuizSessionsController < ApplicationController
   def validate_quiz_session!
     if quiz_session.default?
       redirect_to root_path, notice: 'For requested quiz url was forbidden'
-    else if quiz_session.user == current_user
-           redirect_to quiz_session, notice: 'You are the host of this quiz!'
-         end
+    elsif quiz_session.user == current_user
+      redirect_to quiz_session, notice: 'You are the host of this quiz!'
     end
   end
 

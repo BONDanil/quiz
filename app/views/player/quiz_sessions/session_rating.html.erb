@@ -1,12 +1,16 @@
 <%= turbo_frame_tag 'player-quiz' do %>
-  <%= render 'host/quiz_sessions/synchronous/rating', quiz_session: quiz_session %>
+  <div class="d-flex justify-content-center align-items-center vw-100 h-100 my-5">
+    <div>
+      <%= render 'host/quiz_sessions/synchronous/rating', quiz_session: quiz_session %>
 
-  <% if quiz_session.finished? %>
-    <%= link_to 'Home!', root_path, data: { turbo: false }, class: 'btn btn-success' %>
-  <% else %>
-    <div class="d-flex">
-      <h2>Next question soon</h2>
-      <%= render 'player/quiz_sessions/spinner' %>
+      <% if quiz_session.finished? %>
+        <%= link_to 'Home!', root_path, data: { turbo: false }, class: 'btn btn-success' %>
+      <% else %>
+        <div class="d-flex">
+          <h2>Next question soon</h2>
+          <%= render 'player/quiz_sessions/spinner' %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 <% end %>

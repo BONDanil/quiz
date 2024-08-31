@@ -1,18 +1,22 @@
 <%= turbo_frame_tag 'host-quiz' do %>
-  <p class="text-center" style="color: green"><%= notice %></p>
+  <div class="d-flex justify-content-center align-items-center vw-100 h-100 my-5">
+    <div>
+      <p class="text-center" style="color: green"><%= notice %></p>
 
-  <h2>Connected players:</h2>
+      <h2>Connected players:</h2>
 
-  <%= render 'host/quiz_sessions/synchronous/players', quiz_session: quiz_session %>
+      <%= render 'host/quiz_sessions/synchronous/players', quiz_session: quiz_session %>
 
-  <div class="d-flex flex-column align-items-center justify-content-center">
-    <h2>Use this for sharing quiz url:</h2>
-    <%= svg.html_safe %>
-    <h3>or</h3>
-    <div data-controller="clipboard" data-clipboard-success-content-value="Copied!" class="d-flex flex-column align-items-center">
-      <p data-clipboard-target="source"><%= quiz_play_url %></p>
-      <button type="button" data-action="clipboard#copy" data-clipboard-target="button" class="btn btn-warning">Copy to clipboard</button>
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <h2>Use this for sharing quiz url:</h2>
+        <%= svg.html_safe %>
+        <h3>or</h3>
+        <div data-controller="clipboard" data-clipboard-success-content-value="Copied!" class="d-flex flex-column align-items-center">
+          <p data-clipboard-target="source"><%= quiz_play_url %></p>
+          <button type="button" data-action="clipboard#copy" data-clipboard-target="button" class="btn btn-warning">Copy to clipboard</button>
+        </div>
+        <%= link_to 'Start!', start_quiz_session_path, data: { turbo_method: :put }, class: 'btn btn-success mt-3' %>
+      </div>
     </div>
-    <%= link_to 'Start!', start_quiz_session_path, data: { turbo_method: :put }, class: 'btn btn-success mt-3' %>
   </div>
 <% end %>

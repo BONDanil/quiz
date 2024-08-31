@@ -1,12 +1,14 @@
 <%= form_with model: answer, url: mark_answer_quiz_session_path(answer.quiz_session), method: :put, class: 'd-flex justify-content-around w-50' do |f| %>
   <%= f.hidden_field :id %>
-  <div class="form-check">
-    <%= f.radio_button :correct, false, class: 'form-check-input' %>
-    <%= f.label :correct, "No", value: "false", class: 'form-check-label', for: "quiz_answer_correct_false" %>
+  <div class="d-flex align-items-center justify-content-between">
+    <div class="form-check me-2">
+      <%= f.radio_button :correct, false, class: 'form-check-input' %>
+      <%= f.label :correct, "No", value: "false", class: 'form-check-label', for: "quiz_answer_correct_false" %>
+    </div>
+    <div class="form-check me-2">
+      <%= f.radio_button :correct, true, class: 'form-check-input' %>
+      <%= f.label :correct, "Yes", value: "true", class: 'form-check-label', for: "quiz_answer_correct_true"  %>
+    </div>
+    <%= f.submit 'Save', data: { action: 'answers#save' }, class: 'btn btn-success' %>
   </div>
-  <div class="form-check">
-    <%= f.radio_button :correct, true, class: 'form-check-input' %>
-    <%= f.label :correct, "Yes", value: "true", class: 'form-check-label', for: "quiz_answer_correct_true"  %>
-  </div>
-  <%= f.submit 'Save', data: { action: 'answers#save' }, class: 'btn btn-success' %>
 <% end %>

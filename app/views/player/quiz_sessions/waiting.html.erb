@@ -1,7 +1,11 @@
 <%= turbo_frame_tag 'player-quiz' do %>
-  <div class="d-flex">
-    <h2>Waiting for others answers and evaluation of the host</h2>
-    <%= render 'player/quiz_sessions/spinner' %>
+  <div class="d-flex justify-content-center align-items-center vw-100 h-100 my-5">
+    <div>
+      <div class="d-flex">
+        <h2>Waiting for others answers and evaluation of the host</h2>
+        <%= render 'player/quiz_sessions/spinner' %>
+      </div>
+    </div>
   </div>
   <!--  TODO: show list of users with answers-->
 <% end %>

@@ -1,17 +1,21 @@
 <%= turbo_frame_tag 'host-quiz' do %>
-  <div data-controller="answers">
-    <%= render 'host/quiz_sessions/default/question', question: quiz_session.current_question, answer: 'visible' %>
-    <br>
-      <%= render 'host/quiz_sessions/synchronous/answers', quiz_answers: quiz_session.current_answers %>
-    <br>
+  <div class="d-flex justify-content-center align-items-center vw-100 h-100 my-5">
+    <div>
+      <div data-controller="answers">
+        <%= render 'host/quiz_sessions/default/question', question: quiz_session.current_question, answer: 'visible' %>
+        <br>
+          <%= render 'host/quiz_sessions/synchronous/answers', quiz_answers: quiz_session.current_answers %>
+        <br>
 
-    <%= link_to 'Show rating', rating_quiz_session_path(quiz_session),
-                data: {
-                  turbo_method: :put,
-                  answers_target: 'ratingBtn',
-                  turbo_confirm: 'Are you sure? Maybe not all players responded!'
-                },
-                class: 'btn btn-primary'
-    %>
+        <%= link_to 'Show rating', rating_quiz_session_path(quiz_session),
+                    data: {
+                      turbo_method: :put,
+                      answers_target: 'ratingBtn',
+                      turbo_confirm: 'Are you sure? Maybe not all players responded!'
+                    },
+                    class: 'btn btn-primary'
+        %>
+      </div>
+    </div>
   </div>
 <% end %>

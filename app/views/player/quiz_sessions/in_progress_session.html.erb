@@ -1,7 +1,11 @@
 <%= turbo_frame_tag 'player-quiz' do %>
-  <%= render 'host/quiz_sessions/default/question', question: quiz_session.current_question, answer: 'none' %>
-  <br>
-  <%= turbo_frame_tag 'answer_form' do %>
-    <%= render 'player/quiz_sessions/answer', quiz_session: quiz_session, answer: answer %>
-  <% end %>
+  <div class="d-flex justify-content-center align-items-center vw-100 h-100 my-5">
+    <div>
+      <%= render 'host/quiz_sessions/default/question', question: quiz_session.current_question, answer: 'none' %>
+      <br>
+      <%= turbo_frame_tag 'answer_form' do %>
+        <%= render 'player/quiz_sessions/answer', quiz_session: quiz_session, answer: answer %>
+      <% end %>
+    </div>
+  </div>
 <% end %>
