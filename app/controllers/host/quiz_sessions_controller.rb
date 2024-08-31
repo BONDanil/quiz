@@ -39,6 +39,7 @@ class Host::QuizSessionsController < ApplicationController
 
     if answer
       answer.update!(correct: params[:quiz_answer][:correct])
+      quiz_session.broadcast_replace_to [quiz_session, current_user], target: helpers.dom_id(answer, :answer), partial: 'host/quiz_sessions/synchronous/mark_answer_form', locals: { answer: }
     end
   end
 
