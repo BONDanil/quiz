@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A platform for conducting online quizzes.
 
-Things you may want to cover:
+The user can create question categories and the questions themselves.
 
-* Ruby version
+Then, when creating a quiz session, he indicates the total number of questions and the categories from which questions will be randomly selected.
 
-* System dependencies
+The quiz host can invite friends using an invite link or QR code.
 
-* Configuration
+When everyone has joined, the host starts the game. Participants are shown a question and a field for entering an answer.
 
-* Database creation
+During the answers, the host is shown a list of answers in real time. And he can compare the participants' answers with the correct answer, and mark the correct answers. After receiving all the answers and evaluating them, the host switches the game to the next question.
 
-* Database initialization
+The game continues until the questions run out. The one who answers the most correctly wins.
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The history of games and the players' answers remain in history, and everyone who participated in the game can view both their own and other people's answers.
